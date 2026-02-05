@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>F2 y F3 2026</title>
+
+<style>
+
+body{
+ background:#111;
+ color:white;
+ font-family:Arial;
+ text-align:center;
+}
+
+button{
+ padding:8px 16px;
+ margin:5px;
+ cursor:pointer;
+}
+
+table{
+ width:95%;
+ margin:auto;
+ border-collapse:collapse;
+}
+
+th,td{
+ border:1px solid #444;
+ padding:6px;
+}
+
+th{
+ background:#222;
+}
+
+/* Estado */
+.pasada{opacity:0.4;}
+.proxima{background:#1c5cff;}
+
+/* Sesiones */
+.practice{background:#555;}
+.qualy{background:#ff9800;}
+.sprint{background:#00c853;}
+.carrera{background:#d32f2f;}
+
+</style>
+
+<script>
+function mostrar(id){
+ document.getElementById("f2").style.display="none";
+ document.getElementById("f3").style.display="none";
+ document.getElementById(id).style.display="block";
+}
+</script>
+</head>
+
+<body>
+
+<h1>🏎️ Calendario F2 / F3</h1>
+
+<button onclick="mostrar('f2')">F2</button>
+<button onclick="mostrar('f3')">F3</button>
+
+<!-- F2 -->
+<div id="f2">
+
+<h2>Fórmula 2</h2>
+
+<table>
+<tr>
+<th>Sesión</th>
+<th>Fecha</th>
+<th>Lugar</th>
+<th>Hora AR</th>
+<th>Piloto</th>
+<th>Equipo</th>
+</tr>
+
+{% for c in f2 %}
+ {% for s,h in sesiones %}
+
+<tr class="
+{{ 'pasada' if c.fecha < hoy else 'proxima' }}
+{% if 'Práctica' in s %}practice{% endif %}
+{% if 'Clasificación' in s %}qualy{% endif %}
+{% if s=='Sprint' %}sprint{% endif %}
+{% if s=='Carrera' %}carrera{% endif %}
+">
+
+<td>{{ s }}</td>
+<td>{{ c.fecha }}</td>
+<td>{{ c.lugar }}</td>
+<td>{{ hora_arg(c.fecha,h,c.zona) }}</td>
+<td>{{ c.piloto }}</td>
+<td>{{ c.equipo }}</td>
+
+</tr>
+
+ {% endfor %}
+{% endfor %}
+</table>
+</div>
+
+
+<!-- F3 -->
+<div id="f3" style="display:none">
+
+<h2>Fórmula 3</h2>
+
+<table>
+<tr>
+<th>Sesión</th>
+<th>Fecha</th>
+<th>Lugar</th>
+<th>Hora AR</th>
+<th>Piloto</th>
+<th>Equipo</th>
+</tr>
+
+{% for c in f3 %}
+ {% for s,h in sesiones %}
+
+<tr class="
+{{ 'pasada' if c.fecha < hoy else 'proxima' }}
+{% if 'Práctica' in s %}practice{% endif %}
+{% if 'Clasificación' in s %}qualy{% endif %}
+{% if s=='Sprint' %}sprint{% endif %}
+{% if s=='Carrera' %}carrera{% endif %}
+">
+
+<td>{{ s }}</td>
+<td>{{ c.fecha }}</td>
+<td>{{ c.lugar }}</td>
+<td>{{ hora_arg(c.fecha,h,c.zona) }}</td>
+<td>{{ c.piloto }}</td>
+<td>{{ c.equipo }}</td>
+
+</tr>
+
+ {% endfor %}
+{% endfor %}
+</table>
+</div>
+
+</body>
+</html>
